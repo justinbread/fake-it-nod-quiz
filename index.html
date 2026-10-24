@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>假装听懂了 · 糊弄学段位测试</title>
+<style>
+:root{
+  --bg:#0b0718;
+  --bg2:#14102b;
+  --panel:#1d1540;
+  --panel2:#2a1e58;
+  --panel3:#362872;
+  --line:#05030d;
+  --text:#f3edff;
+  --dim:#a294d6;
+  --gold:#ffd23f;
+  --gold2:#c98f18;
+  --pink:#ff5d8f;
+  --mint:#54e6a8;
+  --cyan:#5fd7ff;
+  --red:#ff4d4d;
+  --purple:#8b6bf0;
+}
+*{box-sizing:border-box;}
+html,body{min-height:100%;}
+body{
+  margin:0;
+  background:
+    radial-gradient(120% 80% at 50% -10%, #2a1e5c 0%, #140f2f 42%, #0a0616 78%, #05030d 100%);
+  color:var(--text);
+  font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","SimHei","Noto Sans CJK SC",sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  letter-spacing:.02em;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:26px 16px 40px;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:
+    linear-gradient(rgba(120,90,220,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120,90,220,.07) 1px, transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(80% 70% at 50% 40%, #000 30%, transparent 100%);
+  -webkit-mask-image:radial-gradient(80% 70% at 50% 40%, #000 30%, transparent 100%);
+}
+body::after{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(2px 2px at 12% 18%, rgba(255,210,63,.5), transparent 60%),
+    radial-gradient(2px 2px at 82% 12%, rgba(95,215,255,.45), transparent 60%),
+    radial-gradient(2px 2px at 68% 78%, rgba(255,93,143,.35), transparent 60%),
+    radial-gradient(2px 2px at 24% 84%, rgba(84,230,168,.35), transparent 60%);
+}
+
+/* ---------- cabinet ---------- */
+.cabinet{
+  position:relative;
+  width:min(1000px,100%);
+  background:var(--panel);
+  border:4px solid var(--line);
+  box-shadow:
+    0 0 0 4px #3d2c7a,
+    0 0 0 8px var(--line),
+    0 0 0 12px #241a4a,
+    14px 14px 0 rgba(0,0,0,.55),
+    0 0 70px rgba(139,107,240,.28);
+  z-index:1;
+  animation:cabinetIn .35s steps(4) both;
+}
+@keyframes cabinetIn{
+  from{transform:translateY(14px);opacity:0;}
+  to{transform:none;opacity:1;}
+}
+.cabinet::after{
+  content:"";
+  position:absolute; inset:0; z-index:9; pointer-events:none;
+  background:repeating-linear-gradient(to bottom, rgba(4,2,12,.22) 0 2px, transparent 2px 4px);
+  opacity:.5;
+}
+.cabinet.flash-good{animation:flashGood .32s steps(3);}
+.cabinet.flash-bad{animation:flashBad .32s steps(3);}
+@keyframes flashGood{
+  0%,100%{box-shadow:0 0 0 4px #3d2c7a,0 0 0 8px var(--line),0 0 0 12px #241a4a,14px 14px 0 rgba(0,0,0,.55);}
+  50%{box-shadow:0 0 0 4px #54e6a8,0 0 0 8px var(--line),0 0 0 12px #241a4a,14px 14px 0 rgba(0,0,0,.55),0 0 60px rgba(84,230,168,.5);}
+}
+@keyframes flashBad{
+  0%,100%{box-shadow:0 0 0 4px #3d2c7a,0 0 0 8px var(--line),0 0 0 12px #241a4a,14px 14px 0 rgba(0,0,0,.55);}
+  25%{box-shadow:0 0 0 4px #ff4d4d,0 0 0 8px var(--line),0 0 0 12px #241a4a,14px 14px 0 rgba(0,0,0,.55),0 0 70px rgba(255,77,77,.55); transform:translateX(-3px);}
+  75%{transform:translateX(3px);}
+}
+
+/* ---------- topbar ---------- */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:12px 18px;
+  background:linear-gradient(#2a1e58,#1b1440);
+  border-bottom:4px solid var(--line);
+  box-shadow:inset 0 -3px 0 #4a378c, inset 0 3px 0 #5b48a8;
+}
+.brand{
+  display:flex; align-items:baseline; gap:8px;
+  font-weight:900; font-size:15px; letter-spacing:.12em; color:var(--gold);
+  text-shadow:2px 2px 0 #5c2a4a;
+}
+.brand .tm{font-size:9px; vertical-align:super; color:var(--dim);}
+.brand small{
+  font-size:11px; letter-spacing:.18em; color:var(--dim); font-weight:400; margin-left:4px;
+}
+.hud{display:flex; align-items:stretch; gap:8px;}
+.hud-cell{
+  min-width:84px;
+  background:#0f0a24;
+  border:3px solid var(--line);
+  box-shadow:inset 0 0 0 2px #3a2b70;
+  padding:4px 10px 5px;
+  text-align:center;
+  line-height:1.15;
+}
+.hud-cell span{display:block; font-size:9px; letter-spacing:.16em; color:var(--dim);}
+.hud-cell b{font-size:17px; color:var(--gold); letter-spacing:.05em;}
+.mute{
+  width:42px;
+  background:#0f0a24; color:var(--dim);
+  border:3px solid var(--line);
+  box-shadow:inset 0 0 0 2px #3a2b70;
+  font-size:16px; cursor:pointer;
+}
+.mute:hover{color:var(--gold);}
+.mute.off{color:#5b4a8f;}
+
+/* ---------- stage ---------- */
+.stage{padding:28px 26px 30px; position:relative;}
+.screen{display:none;}
+.screen.on{display:block; animation:pop .22s steps(3) both;}
+@keyframes pop{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:none;}
+}
+
+/* ---------- shared bits ---------- */
+.kicker{
+  font-size:11px; letter-spacing:.22em; color:var(--dim);
+  text-transform:uppercase;
+}
+.logo{
+  margin:10px 0 0;
+  font-size:clamp(44px,9vw,84px);
+  line-height:1.02;
+  font-weight:900;
+  color:var(--gold);
+  letter-spacing:.06em;
+  text-shadow:
+    0 4px 0 #b07a12,
+    0 8px 0 #6d2b4d,
+    8px 12px 0 var(--line);
+}
+.sub{
+  margin:10px 0 0;
+  font-size:12px; letter-spacing:.42em; color:var(--cyan);
+  text-shadow:2px 2px 0 #163a52;
+}
+.lead{margin:20px 0 0; font-size:16px; color:#ded5ff; line-height:1.75;}
+.rules{
+  list-style:none; margin:20px 0 0; padding:0;
+  display:flex; flex-wrap:wrap; gap:8px;
+}
+.rules li{
+  background:#150f33; border:3px solid var(--line);
+  box-shadow:inset 0 0 0 2px #33265f;
+  padding:7px 11px; font-size:12px; color:var(--dim);
+  letter-spacing:.06em;
+}
+.rules b{color:var(--mint); margin-right:3px; font-size:14px;}
+
+/* pixel button base */
+.btn{
+  font-family:inherit; font-size:15px; font-weight:700; letter-spacing:.08em;
+  color:#150d2b; background:var(--gold);
+  border:4px solid var(--line);
+  padding:13px 22px;
+  cursor:pointer;
+  box-shadow:6px 6px 0 var(--line), inset 0 -6px 0 var(--gold2), inset 0 4px 0 #ffe589;
+  transition:transform .06s steps(2), box-shadow .06s steps(2), filter .1s;
+}
+.btn:hover{filter:brightness(1.07); transform:translate(-2px,-2px); box-shadow:8px 8px 0 var(--line), inset 0 -6px 0 var(--gold2), inset 0 4px 0 #ffe589;}
+.btn:active{transform:translate(4px,4px); box-shadow:2px 2px 0 var(--line), inset 0 -4px 0 var(--gold2);}
+.btn:focus-visible{outline:3px solid var(--cyan); outline-offset:4px;}
+.btn.ghost{
+  background:var(--panel2); color:var(--text);
+  box-shadow:6px 6px 0 var(--line), inset 0 -6px 0 #191238, inset 0 4px 0 #4d3a94;
+}
+.btn.ghost:hover{filter:none; background:var(--panel3);}
+.start-btn{
+  margin-top:26px; font-size:17px; padding:16px 30px;
+  position:relative;
+}
+.start-btn .play{color:#7a3b12; margin-right:8px;}
+.blink{animation:blink 1s steps(1) infinite;}
+@keyframes blink{50%{opacity:0;}}
+.disclaimer{margin:16px 0 0; font-size:11px; color:#7f71b1; letter-spacing:.06em;}
+
+/* camera frame */
+.cam{
+  position:relative;
+  background:#0a0618;
+  border:4px solid var(--line);
+  box-shadow:inset 0 0 0 3px #33265f, 6px 6px 0 rgba(0,0,0,.45);
+  padding:10px;
+  overflow:hidden;
+}
+.cam::before{
+  content:"";
+  position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(circle at 50% 45%, transparent 52%, rgba(10,6,24,.55) 100%);
+  z-index:2;
+}
+.cam .scan{
+  position:absolute; inset:0; pointer-events:none;
+  background:repeating-linear-gradient(to bottom, rgba(0,0,0,.22) 0 2px, transparent 2px 4px);
+}
+.face{
+  display:block; width:100%; height:auto;
+  image-rendering:pixelated;
+  image-rendering:crisp-edges;
+  animation:bob 2.4s steps(2) infinite;
+}
+@keyframes bob{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-3px);}
+}
+
+/* speech bubble */
+.bubble{
+  position:relative;
+  margin-top:18px;
+  background:#f6f1ff; color:#150d2b;
+  border:4px solid var(--line);
+  padding:16px 18px;
+  box-shadow:7px 7px 0 rgba(0,0,0,.45);
+}
+.bubble p{margin:0; font-size:16px; line-height:1.65; font-weight:600;}
+.bubble::after{
+  content:"";
+  position:absolute; left:34px; bottom:-13px;
+  width:16px; height:16px;
+  background:#f6f1ff;
+  border-right:4px solid var(--line);
+  border-bottom:4px solid var(--line);
+  transform:rotate(45deg);
+}
+
+/* ---------- title screen ---------- */
+.title-grid{
+  display:grid;
+  grid-template-columns:1.35fr .8fr;
+  gap:34px;
+  align-items:center;
+}
+.title-side{display:flex; flex-direction:column; gap:22px;}
+.title-side .bubble{margin-top:0; font-size:20px; font-weight:900; text-align:center; letter-spacing:.08em;}
+.title-side .bubble::after{left:50%; margin-left:-8px;}
+.title-side .caption{
+  margin:-6px 0 0; text-align:center;
+  font-size:10px; letter-spacing:.18em; color:var(--dim);
+}
+
+/* ---------- quiz ---------- */
+.q-grid{
+  display:grid;
+  grid-template-columns:206px 1fr;
+  gap:26px;
+  align-items:start;
+}
+.avatar-panel{
+  background:#150f33;
+  border:4px solid var(--line);
+  box-shadow:inset 0 0 0 3px #33265f, 7px 7px 0 rgba(0,0,0,.4);
+  padding:14px;
+  text-align:center;
+}
+.avatar-panel .who{
+  margin-top:12px; font-size:11px; letter-spacing:.24em; color:var(--gold);
+}
+.mood{
+  margin-top:4px; font-size:12px; color:var(--dim);
+  min-height:22px;
+}
+.meter{
+  display:flex; justify-content:center; gap:3px; margin-top:12px;
+  min-height:16px;
+}
+.meter i{
+  width:9px; height:14px;
+  background:#241a4a; border:2px solid #0a0618;
+}
+.meter i.on{background:var(--gold); border-color:#6d4a05; box-shadow:0 0 6px rgba(255,210,63,.6);}
+.meter-label{
+  margin-top:8px; font-size:10px; letter-spacing:.12em; color:var(--dim);
+}
+.meter-label b{color:var(--gold); font-size:12px;}
+
+.q-main{min-width:0;}
+.q-meta{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  font-size:10px; letter-spacing:.18em; color:var(--dim);
+  border-bottom:3px solid #33265f;
+  padding-bottom:8px;
+  margin-bottom:16px;
+}
+.q-meta .scene{color:var(--cyan);}
+.speaker{
+  display:inline-block;
+  background:var(--pink); color:#2b0716;
+  font-size:12px; font-weight:900; letter-spacing:.1em;
+  padding:4px 10px;
+  border:3px solid var(--line);
+  box-shadow:3px 3px 0 var(--line);
+}
+.prompt{
+  margin:22px 0 10px;
+  font-size:14px; line-height:1.65; color:#e8dfff;
+  letter-spacing:.02em;
+}
+.prompt .lead-label{
+  color:var(--dim); font-size:11px; letter-spacing:.14em; margin-right:8px;
+}
+.prompt em{font-style:normal; color:#ffffff;}
+.prompt .hint{
+  display:block; margin-top:5px;
+  font-size:10px; letter-spacing:.12em; color:#6d5f9e;
+}
+
+.opts{display:flex; flex-direction:column; gap:10px;}
+.opt{
+  display:flex; align-items:flex-start; gap:12px;
+  width:100%; text-align:left;
+  font-family:inherit; font-size:15px; line-height:1.62; color:var(--text);
+  background:var(--panel2);
+  border:4px solid var(--line);
+  padding:13px 15px;
+  cursor:pointer;
+  box-shadow:5px 5px 0 rgba(0,0,0,.4), inset 0 -4px 0 #1b1340, inset 0 4px 0 #4a378c;
+  transition:background .08s steps(2), transform .06s steps(2), box-shadow .06s steps(2);
+}
+.opt:hover:not(:disabled){
+  background:var(--panel3); transform:translate(-2px,-2px);
+  box-shadow:7px 7px 0 rgba(0,0,0,.5), inset 0 -4px 0 #1b1340, inset 0 4px 0 #5f4bb8;
+}
+.opt:active:not(:disabled){transform:translate(2px,2px); box-shadow:2px 2px 0 rgba(0,0,0,.4);}
+.opt:focus-visible{outline:3px solid var(--cyan); outline-offset:3px;}
+.opt:disabled{cursor:default;}
+.opt .key{
+  flex:0 0 auto;
+  width:26px; height:26px;
+  display:grid; place-items:center;
+  background:#0d0820; border:3px solid #5b48a8;
+  font-size:12px; font-weight:900; color:var(--gold); letter-spacing:0;
+}
+.opt .txt{flex:1;}
+.opt.is-best{
+  background:#14503c;
+  box-shadow:5px 5px 0 rgba(0,0,0,.4), inset 0 0 0 3px #54e6a8;
+}
+.opt.is-best .key{background:#54e6a8; color:#06231a; border-color:#06231a;}
+.opt.is-picked-miss{
+  background:#4a1230;
+  box-shadow:5px 5px 0 rgba(0,0,0,.4), inset 0 0 0 3px #ff5d8f;
+}
+.opt.is-picked-miss .key{background:#ff5d8f; color:#2b0716; border-color:#2b0716;}
+.opt.faded{opacity:.42;}
+.opt .flag{
+  flex:0 0 auto; align-self:center;
+  font-size:9px; letter-spacing:.12em; font-weight:900;
+  padding:3px 6px; border:2px solid var(--line);
+  background:var(--gold); color:#231604;
+}
+.opt .flag.miss{background:var(--pink); color:#2b0716;}
+
+/* feedback */
+.feedback{
+  margin-top:18px;
+  border:4px solid var(--line);
+  background:#181038;
+  box-shadow:inset 0 0 0 3px #382a6e, 7px 7px 0 rgba(0,0,0,.4);
+  padding:16px;
+  animation:pop .2s steps(3) both;
+}
+.verdict-head{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+}
+.stamp{
+  display:inline-block;
+  font-size:12px; font-weight:900; letter-spacing:.1em;
+  padding:6px 10px;
+  border:3px solid var(--line);
+  background:var(--mint); color:#06231a;
+  transform:rotate(-1.5deg);
+  box-shadow:4px 4px 0 var(--line);
+}
+.stamp.s2{background:var(--cyan); color:#062131;}
+.stamp.s1{background:var(--gold); color:#231604;}
+.stamp.s0{background:var(--red); color:#2b0505;}
+.gain{
+  font-size:18px; font-weight:900; color:var(--gold);
+  letter-spacing:.04em;
+  text-shadow:2px 2px 0 #3a2a05;
+}
+.why{
+  margin:12px 0 0; font-size:14px; line-height:1.7; color:#ddd3ff;
+}
+.why b{color:var(--mint);}
+.fb-actions{display:flex; justify-content:flex-end; margin-top:14px;}
+.next-btn{font-size:13px; padding:10px 18px;}
+
+/* progress dots */
+.dots{
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:22px;
+  padding-top:14px; border-top:3px solid #33265f;
+}
+.dots i{
+  width:26px; height:12px;
+  background:#241a4a; border:2px solid #0a0618;
+}
+.dots i.p3{background:var(--gold); border-color:#6d4a05;}
+.dots i.p2{background:var(--mint); border-color:#0c4a33;}
+.dots i.p1{background:var(--pink); border-color:#5e1030;}
+.dots i.p0{background:var(--red); border-color:#5c0909;}
+.dots i.cur{box-shadow:0 0 0 2px #f3edff;}
+
+/* ---------- end screen ---------- */
+.end-grid{
+  display:grid; grid-template-columns:.75fr 1.35fr; gap:34px; align-items:center;
+}
+.end-grid .cam{max-width:280px; margin:0 auto;}
+.rank-plate{
+  margin-top:12px;
+  background:linear-gradient(180deg,#2a1e58,#1a1236);
+  border:4px solid var(--line);
+  box-shadow:inset 0 0 0 3px #4a378c, 7px 7px 0 rgba(0,0,0,.45);
+  padding:14px 18px;
+  display:flex; align-items:center; gap:14px;
+}
+.rank-tag{
+  flex:0 0 auto;
+  font-size:10px; font-weight:900; letter-spacing:.14em;
+  background:var(--gold); color:#231604;
+  border:3px solid var(--line);
+  padding:4px 8px;
+  box-shadow:3px 3px 0 var(--line);
+}
+.rank-plate h2{
+  margin:0; font-size:clamp(22px,3.6vw,34px); line-height:1.2;
+  color:var(--gold); letter-spacing:.06em;
+  text-shadow:3px 3px 0 #5a2a44;
+}
+.score-line{
+  display:flex; align-items:baseline; gap:10px; margin-top:22px;
+}
+.score-line b{
+  font-size:clamp(42px,7vw,64px); line-height:1;
+  color:var(--text);
+  text-shadow:4px 4px 0 #2a1e58, 6px 6px 0 var(--line);
+  font-variant-numeric:tabular-nums;
+}
+.score-line span{font-size:18px; color:var(--dim); letter-spacing:.06em;}
+.score-line em{
+  font-style:normal; margin-left:auto;
+  font-size:11px; letter-spacing:.14em; color:var(--dim); text-align:right;
+}
+.rank-desc{
+  margin:16px 0 0; font-size:14px; line-height:1.75; color:#ded5ff;
+  background:#150f33; border-left:6px solid var(--gold);
+  padding:10px 14px;
+}
+.end-stats{
+  display:flex; gap:10px; flex-wrap:wrap; margin-top:18px;
+}
+.end-stats div{
+  background:#150f33; border:3px solid var(--line);
+  box-shadow:inset 0 0 0 2px #33265f;
+  padding:8px 12px; font-size:11px; letter-spacing:.1em; color:var(--dim);
+}
+.end-stats b{display:block; font-size:18px; color:var(--mint); letter-spacing:0;}
+.end-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:24px;}
+
+/* footer bar */
+.bottombar{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:10px 18px;
+  background:#0f0a24;
+  border-top:4px solid var(--line);
+  font-size:10px; letter-spacing:.14em; color:#6f61a5;
+  box-shadow:inset 0 3px 0 #3a2b70;
+}
+.bottombar .led{
+  display:inline-block; width:8px; height:8px; background:var(--mint);
+  margin-right:8px;
+  box-shadow:0 0 6px var(--mint);
+  animation:blink 1.6s steps(1) infinite;
+}
+.bottombar kbd{
+  font-family:inherit; font-size:10px;
+  border:2px solid #3a2b70; padding:1px 5px; color:var(--dim);
+}
+
+/* toast */
+.toast{
+  position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px);
+  background:var(--gold); color:#231604;
+  border:4px solid var(--line);
+  box-shadow:5px 5px 0 var(--line);
+  padding:10px 18px; font-size:13px; font-weight:900; letter-spacing:.08em;
+  opacity:0; pointer-events:none; z-index:50;
+  transition:opacity .15s steps(2), transform .15s steps(2);
+}
+.toast.on{opacity:1; transform:translateX(-50%) translateY(0);}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  body{padding:14px 10px 26px;}
+  .stage{padding:20px 16px 24px;}
+  .title-grid{grid-template-columns:1fr; gap:22px;}
+  .title-side{order:-1; max-width:none; margin:0; display:flex; flex-direction:row; align-items:center; gap:14px;}
+  .title-side .cam{flex:0 0 96px; width:96px;}
+  .title-side .bubble{flex:1; margin:0; font-size:16px; padding:12px 14px; text-align:center;}
+  .title-side .bubble::before{
+    content:""; position:absolute; left:-12px; top:calc(50% - 9px);
+    width:14px; height:14px; background:#f6f1ff;
+    border-left:4px solid var(--line); border-bottom:4px solid var(--line);
+    transform:rotate(45deg);
+  }
+  .title-side .bubble::after{display:none;}
+  .title-side .caption{display:none;}
+  .logo{font-size:clamp(38px,11vw,60px);}
+  .lead{margin:14px 0 0; font-size:15px;}
+  .rules{margin:14px 0 0;}
+  .start-btn{margin-top:18px; width:100%;}
+  .q-grid{grid-template-columns:1fr; gap:18px;}
+  .avatar-panel{display:flex; align-items:center; gap:14px; text-align:left; padding:10px;}
+  .avatar-panel .cam{width:92px; flex:0 0 92px; padding:6px;}
+  .avatar-panel .who{margin-top:0;}
+  .avatar-panel .mood{margin-top:2px;}
+  .avatar-panel .meter{margin-top:8px; justify-content:flex-start;}
+  .avatar-panel .meter-label{margin-top:6px;}
+  .avatar-meta{flex:1; min-width:0;}
+  .end-grid{grid-template-columns:1fr; gap:22px;}
+  .end-grid .cam{max-width:180px;}
+  .hud-cell{min-width:64px; padding:3px 7px 4px;}
+  .hud-cell b{font-size:15px;}
+  .brand small{display:none;}
+  .opt{font-size:14px; padding:11px 12px;}
+  .bubble p{font-size:15px;}
+  .bottombar .keys{display:none;}
+}
+@media (max-width:520px){
+  .topbar{padding:9px 10px; gap:8px;}
+  .hud{gap:5px;}
+  .hud-cell{min-width:54px; padding:2px 5px 3px;}
+  .hud-cell span{font-size:8px; letter-spacing:.06em;}
+  .hud-cell b{font-size:13px;}
+  .mute{width:34px; font-size:14px;}
+  .brand{font-size:12px; letter-spacing:.06em;}
+  .stage{padding:16px 12px 20px;}
+  .score-line em{display:none;}
+  .logo{margin:6px 0 0; font-size:clamp(36px,10.5vw,52px); text-shadow:0 4px 0 #b07a12, 0 7px 0 #6d2b4d, 6px 10px 0 var(--line);}
+  .kicker{font-size:10px;}
+  .sub{margin:8px 0 0; font-size:10px; letter-spacing:.3em;}
+  .lead{margin:12px 0 0; font-size:14px; line-height:1.6;}
+  .rules{margin:12px 0 0; gap:6px;}
+  .rules li{padding:5px 8px; font-size:11px;}
+  .start-btn{margin-top:14px; padding:13px 18px; font-size:15px;}
+  .disclaimer{margin:10px 0 0;}
+  .q-meta{margin-bottom:12px; padding-bottom:6px;}
+  .bubble{margin-top:12px; padding:12px 14px;}
+  .bubble p{font-size:14px; line-height:1.6;}
+  .prompt{margin:16px 0 8px; font-size:13px;}
+  .prompt .hint{display:none;}
+  .opt{font-size:13px; padding:10px 11px; gap:9px;}
+  .opt .key{width:22px; height:22px; font-size:11px;}
+  .avatar-panel .cam{width:80px; flex:0 0 80px;}
+  .dots i{width:20px; height:10px;}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important; transition:none !important;}
+}
+</style>
+</head>
+<body>
+<div class="cabinet" id="cabinet">
+
+  <header class="topbar">
+    <div class="brand">NOD-KUN<span class="tm">™</span><small>糊弄学研究所</small></div>
+    <div class="hud">
+      <div class="hud-cell"><span>SCORE</span><b id="hudScore">0</b></div>
+      <div class="hud-cell"><span>SCENE</span><b id="hudProg">0/10</b></div>
+      <div class="hud-cell"><span>FAIL</span><b id="hudFail">0</b></div>
+      <button class="mute" id="muteBtn" aria-label="开关音效" title="音效开关">♪</button>
+    </div>
+  </header>
+
+  <main class="stage">
+
+    <!-- ========== TITLE ========== -->
+    <section class="screen on" id="screen-title">
+      <div class="title-grid">
+        <div class="title-copy">
+          <div class="kicker">互动测验 · 第 001 号 · 10 SCENES</div>
+          <h1 class="logo">假装听懂了</h1>
+          <p class="sub">THE NODDING SIMULATOR</p>
+          <p class="lead">十个日常场景，四次点头机会。<br>测一测你的「假装听懂」，能撑到第几轮。</p>
+          <ul class="rules">
+            <li><b>10</b> 个社死场景</li>
+            <li><b>4</b> 选 1 · 不能重来</li>
+            <li><b>30</b> 分满分 · 五个段位</li>
+          </ul>
+          <button class="btn start-btn" id="startBtn"><span class="play blink">▶</span> START 开始测验</button>
+          <p class="disclaimer">※ 本测验纯属娱乐，请勿在真实会议中全盘照搬。</p>
+        </div>
+        <div class="title-side">
+          <div class="cam">
+            <canvas class="face" id="faceTitle" width="20" height="20"></canvas>
+            <div class="scan"></div>
+          </div>
+          <div class="bubble">嗯嗯，对对对。</div>
+          <p class="caption">NOD-KUN · 你的表情替身</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== QUIZ ========== -->
+    <section class="screen" id="screen-quiz">
+      <div class="q-grid">
+
+        <aside class="avatar-panel">
+          <div class="cam">
+            <canvas class="face" id="face" width="20" height="20"></canvas>
+            <div class="scan"></div>
+          </div>
+          <div class="avatar-meta">
+            <div class="who">NOD-KUN</div>
+            <div class="mood" id="mood">礼貌性微笑</div>
+            <div class="meter" id="meter"></div>
+            <div class="meter-label">伪装力 <b id="meterNum">0</b> / 30</div>
+          </div>
+        </aside>
+
+        <div class="q-main">
+          <div class="q-meta">
+            <span class="scene" id="sceneLabel">SCENE 01</span>
+            <span id="counter">01 / 10</span>
+          </div>
+
+          <div class="speaker" id="speaker">老板</div>
+          <div class="bubble"><p id="line"></p></div>
+
+          <div class="prompt" id="prompt">你的反应是 —— <em>键盘 1 / 2 / 3 / 4 也可选择</em></div>
+          <div class="opts" id="opts"></div>
+
+          <div class="feedback" id="feedback" hidden>
+            <div class="verdict-head">
+              <span class="stamp" id="stamp">PERFECT</span>
+              <span class="gain" id="gain">+3 分</span>
+            </div>
+            <p class="why" id="why"></p>
+            <div class="fb-actions">
+              <button class="btn next-btn" id="nextBtn">继续 ▶</button>
+            </div>
+          </div>
+
+          <div class="dots" id="dots" aria-label="答题进度"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========== END ========== -->
+    <section class="screen" id="screen-end">
+      <div class="end-grid">
+        <div>
+          <div class="cam">
+            <canvas class="face" id="faceEnd" width="20" height="20"></canvas>
+            <div class="scan"></div>
+          </div>
+          <p class="caption" style="text-align:center;font-size:10px;letter-spacing:.16em;color:var(--dim);margin:12px 0 0;">NOD-KUN · 已为你准备好奖杯</p>
+        </div>
+
+        <div class="end-right">
+          <div class="kicker">TEST COMPLETE · 测验结束</div>
+          <div class="rank-plate">
+            <span class="rank-tag" id="rankTag">LV.4</span>
+            <h2 id="rankName">职场影帝</h2>
+          </div>
+          <div class="score-line">
+            <b id="finalScore">0</b><span>/ 30</span>
+            <em>伪装力总分</em>
+          </div>
+          <p class="rank-desc" id="rankDesc"></p>
+          <div class="end-stats" id="endStats"></div>
+          <div class="dots" id="endDots" style="margin-top:18px;"></div>
+          <div class="end-actions">
+            <button class="btn" id="againBtn">再来一局 ▶</button>
+            <button class="btn ghost" id="copyBtn">复制成绩</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bottombar">
+    <span><i class="led"></i>SYSTEM READY · NODDING ENGINE v1.0</span>
+    <span class="keys"><kbd>1-4</kbd> 选择 &nbsp; <kbd>Enter</kbd> 继续 &nbsp; <kbd>M</kbd> 静音</span>
+  </footer>
+</div>
+
+<div class="toast" id="toast">已复制成绩单</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ 题库 ============ */
+  var QUESTIONS = [
+    {
+      scene: "会议室 B · 周一 10:12",
+      who: "老板",
+      line: "这个项目呢，我们要先拉通对齐，形成一个闭环，颗粒度再细一点。",
+      prompt: "你其实一个字都没进脑子。",
+      opts: [
+        { t: "我复述一下：把方案拆成按周可交付的小任务，每周同步一次进度，对吗？", s: 3,
+          why: "把黑话翻译成动作，再用问句确认——这是糊弄学的最高段位：看起来像听懂，实际上把解释权拿回了自己手里。" },
+        { t: "好的，我今晚先出一版按周拆解的方案。", s: 2,
+          why: "用行动代替理解。赌对了叫执行力，赌错了叫返工，但至少你能活过今晚。" },
+        { t: "嗯嗯，对对对，就是这样。", s: 1,
+          why: "经典战术点头。你成功维持了会议气氛，也成功给自己埋了一颗雷。" },
+        { t: "不好意思，颗粒度到底是什么意思？", s: 0,
+          why: "诚实得令人尊敬。但在会议室里，这句话等于举手申请成为全场焦点。" }
+      ]
+    },
+    {
+      scene: "外婆家饭桌 · 春节 18:30",
+      who: "二舅",
+      line: "听说你是搞电脑的？那帮我看看我这手机为啥老卡，顺便把照片都导出来呗。",
+      prompt: "你是算法工程师，但你不想解释。",
+      opts: [
+        { t: "差不多，我是给手机看脑子的，它想不通的时候我来劝。", s: 3,
+          why: "自嘲加一句话降维，在天被聊死之前先把它聊活。二舅笑了，你也逃过了导照片。" },
+        { t: "我主要写代码，写那种让推荐更准的代码。", s: 2,
+          why: "标准降维解释，安全、体面。代价是二舅下一句会问：那能给我推点便宜货吗？" },
+        { t: "嗯……对，差不多就是修电脑的。", s: 1,
+          why: "你保住了饭桌和平，也永久失去了在家族群里被尊重的可能。" },
+        { t: "其实我研究的是大规模稀疏矩阵下的梯度更新。", s: 0,
+          why: "饭桌瞬间安静。二舅妈给你夹了一筷子菜，眼神里全是同情。" }
+      ]
+    },
+    {
+      scene: "客厅 · 周三 22:41",
+      who: "室友",
+      line: "我刚才说的那一大段，你是不是根本没在听？",
+      prompt: "你确实只听见了最后半句。",
+      opts: [
+        { t: "我在听。你刚说你觉得最近很累，又不好意思开口。", s: 3,
+          why: "精准复述对方的核心情绪，比复述全部内容更有效。你不是听懂了字，你听懂了人。" },
+        { t: "我确实走神了。你再说一遍最后那段，这次我认真听。", s: 2,
+          why: "承认加补救。诚实不酷，但比狡辩耐用。" },
+        { t: "在听在听，你继续说。", s: 1,
+          why: "延迟战术。对方会继续说，也会继续观察你的眼神。" },
+        { t: "嗯嗯，对对。", s: 0,
+          why: "四个字，直接把自己送上了审判席。" }
+      ]
+    },
+    {
+      scene: "健身房 · 周四 20:05",
+      who: "教练",
+      line: "这个动作注意肩胛下沉、核心收紧、离心控制三秒，别代偿。",
+      prompt: "「代偿」是什么你完全不知道，但教练已经在看你。",
+      opts: [
+        { t: "我先做一组，你在旁边看下我姿势对不对？", s: 3,
+          why: "把「听懂」换成「被检查」。身体会替你回答问题，这是最诚实的作弊。" },
+        { t: "好，我录一段视频，回去对着看。", s: 2,
+          why: "留证据式学习。看着像努力，其实是给未来的自己留了一条活路。" },
+        { t: "（点头）然后默默走向跑步机。", s: 1,
+          why: "你避开了所有风险，也避开了所有训练效果。" },
+        { t: "懂了，直接上最大重量。", s: 0,
+          why: "这不是假装听懂，这是假装自己是钢铁侠。请立刻放下杠铃。" }
+      ]
+    },
+    {
+      scene: "工位 · 周五 17:58",
+      who: "领导（60 秒语音）",
+      line: "那个……你把这个……对吧……明天之前……嗯……就那个意思。",
+      prompt: "你只听清了「明天之前」。",
+      opts: [
+        { t: "（转文字后）收到。我先把 A 和 B 完成，C 部分周三前找您确认，可以吗？", s: 3,
+          why: "把模糊需求切成三块，再用问句收口。你不是听懂了，你是把不懂变成了对方的选择题。" },
+        { t: "领导，刚才信号不太好，方便发文字吗？", s: 2,
+          why: "战术性信号不好，职场通用技能。缺点是同一个理由一年只能用两次。" },
+        { t: "收到！", s: 1,
+          why: "最省事的回复，最昂贵的代价——你会在明天之前反复打开那条语音。" },
+        { t: "回复「明白」，然后按自己的理解做了三天。", s: 0,
+          why: "你不是在假装听懂，你是在用三天时间证明自己没听懂。" }
+      ]
+    },
+    {
+      scene: "烧烤摊 · 周六 23:10",
+      who: "朋友",
+      line: "然后结尾那段长镜头，你懂我意思吧？就是那种……你懂吧？",
+      prompt: "你连片名都没记住。",
+      opts: [
+        { t: "懂，就是看完之后坐在原地不想说话的那种感觉。", s: 3,
+          why: "接住情绪，而不是接住剧情。人类社交的八成靠这个。" },
+        { t: "听起来像我上次看的那部，我今晚就去看。", s: 2,
+          why: "转移加承诺，成本可控——只要你别真的被追问细节。" },
+        { t: "懂了懂了，确实。", s: 1,
+          why: "安全，但你在对方心里的可信度已经开始掉帧。" },
+        { t: "所以主角到底叫什么来着？", s: 0,
+          why: "这一问，把你从「懂的人」变成了「没看的人」，中间没有任何过渡。" }
+      ]
+    },
+    {
+      scene: "诊室 · 周二 09:20",
+      who: "医生",
+      line: "目前看问题不大，但肝酶偏高，注意随访，必要时复查腹部超声。",
+      prompt: "你只听见了「问题不大」。（本题为反套路题）",
+      opts: [
+        { t: "那我需要做什么？多久复查一次？平时有什么要忌口的？", s: 3,
+          why: "这里追问不是露怯，是保命。命比面子重要——这一条凌驾于所有段位之上。" },
+        { t: "我记一下这几个词，回去查资料。", s: 2,
+          why: "回去查是对的，但请查正规来源，别在凌晨三点搜索症状。" },
+        { t: "（点头）问题不大就好，回家越搜越害怕。", s: 1,
+          why: "你听懂了「问题不大」四个字，然后用一晚上把它翻译成了「我完了」。" },
+        { t: "好的，都懂了，谢谢医生。", s: 0,
+          why: "医生以为你懂了，你以为自己懂了，只有体检报告知道真相。" }
+      ]
+    },
+    {
+      scene: "工位 · 周一 15:00",
+      who: "同事（明天休假）",
+      line: "你在 A 系统建单，B 平台跑批，C 组会同步，记得看 D 群的通知。",
+      prompt: "四个字母，一个都没记住。",
+      opts: [
+        { t: "我复述一遍：A 建单、B 跑批、C 同步，漏了你就打断我。", s: 3,
+          why: "当着对方的面把流程过一遍，是成本最低的防翻车装置。" },
+        { t: "我先自己走一遍流程，卡住的地方标出来问你。", s: 2,
+          why: "动手验证，比嘴上复述更牢。前提是对方还没登机。" },
+        { t: "放心，我都懂，你去休假吧。", s: 1,
+          why: "你送走了一个人，也送走了自己这一周的安全网。" },
+        { t: "（点头如捣蒜）第二天在 D 群里问：A 系统是哪个？", s: 0,
+          why: "全公司都知道你昨天听懂了，除了你自己。" }
+      ]
+    },
+    {
+      scene: "咖啡店 · 周日 15:30",
+      who: "相亲对象",
+      line: "我这个人其实比较看重情绪价值，物质倒是其次。",
+      prompt: "你不确定「情绪价值」具体指什么。",
+      opts: [
+        { t: "那什么样的小事，会让你觉得被在意？", s: 3,
+          why: "不解释名词，直接问场景。这是把抽象词变成可执行清单的唯一办法。" },
+        { t: "「情绪价值」这个词，你具体是指哪方面？", s: 2,
+          why: "直球提问，略显认真。但认真在这个场合不算缺点。" },
+        { t: "我也是，我也很看重情绪价值。", s: 1,
+          why: "镜像式附和，听起来很合拍，实际上是两个人一起原地踏步。" },
+        { t: "嗯嗯，对，现在大家都这样。", s: 0,
+          why: "这句话的潜台词是：我没听懂，而且我也不打算懂。" }
+      ]
+    },
+    {
+      scene: "工位 · 周五 16:20",
+      who: "导师",
+      line: "大概就是这些，都明白了吧？",
+      prompt: "你明白了大约六成，但「明白了吧」这四个字有压迫感。",
+      opts: [
+        { t: "明白了八成。剩下两成是权限申请和报表口径，我再确认一下，可以吗？", s: 3,
+          why: "量化你的不懂。「八成明白」比「完全明白」可信一百倍。" },
+        { t: "等一下，我从头复述一遍，您听听对不对。", s: 2,
+          why: "复述是万能钥匙，代价是需要一点勇气和一点时间。" },
+        { t: "明白了，谢谢老师！", s: 1,
+          why: "标准结局。三天后你会带着三个问题回来，而导师已经忘了自己说过什么。" },
+        { t: "明白！完全没问题！", s: 0,
+          why: "你不仅假装听懂了，还给自己签了一份无期限的担保合同。" }
+      ]
+    }
+  ];
+
+  /* ============ 段位 ============ */
+  var RANKS = [
+    { min: 0,  max: 9,  tag: "LV.1", name: "点头萌新", color: "#a294d6", mood: "dead",
+      desc: "你的「嗯嗯」还很青涩，容易在第三次追问时露馅。好消息是：你至少还没造成实际损失。" },
+    { min: 10, max: 17, tag: "LV.2", name: "战术微笑员", color: "#5fd7ff", mood: "sweat",
+      desc: "你已经掌握了不接话、不追问、不被发现这三大基本功。距离影帝，还差一次成功的复述。" },
+    { min: 18, max: 23, tag: "LV.3", name: "糊弄学在读", color: "#54e6a8", mood: "idle",
+      desc: "你能把不懂包装成流程，把模糊包装成方案。请注意：包装得越好，翻车的时候越响。" },
+    { min: 24, max: 27, tag: "LV.4", name: "职场影帝", color: "#ffd23f", mood: "cool",
+      desc: "你的高级技巧不是装懂，而是把「不懂」变成对方的选择题。全场都以为你懂了，只有你知道自己刚才干了什么。" },
+    { min: 28, max: 30, tag: "LV.5", name: "懂王本懂", color: "#ff5d8f", mood: "cool",
+      desc: "最高段位的假装听懂，其实是精准地承认不懂。你演得太好了，以至于看起来完全不像在演。" }
+  ];
+
+  /* ============ 状态 ============ */
+  var state = { i: 0, score: 0, fails: 0, results: [], locked: false, started: false, sound: true };
+  var session = [];
+
+  var $ = function(id){ return document.getElementById(id); };
+  var cabinet = $("cabinet");
+  var screens = {
+    title: $("screen-title"),
+    quiz: $("screen-quiz"),
+    end: $("screen-end")
+  };
+
+  /* ============ 音效 ============ */
+  var ac = null;
+  function audioCtx(){
+    if (!ac) {
+      var C = window.AudioContext || window.webkitAudioContext;
+      if (!C) return null;
+      ac = new C();
+    }
+    if (ac.state === "suspended") { ac.resume(); }
+    return ac;
+  }
+  function tone(freq, dur, type, vol, targetFreq){
+    if (!state.sound) return;
+    var ctx = audioCtx();
+    if (!ctx) return;
+    var o = ctx.createOscillator();
+    var g = ctx.createGain();
+    o.type = type || "square";
+    o.frequency.setValueAtTime(freq, ctx.currentTime);
+    if (targetFreq) o.frequency.exponentialRampToValueAtTime(targetFreq, ctx.currentTime + dur);
+    g.gain.setValueAtTime(0.0001, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(vol || 0.045, ctx.currentTime + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+    o.connect(g); g.connect(ctx.destination);
+    o.start(); o.stop(ctx.currentTime + dur + 0.02);
+  }
+  function sfx(name){
+    if (!state.sound) return;
+    if (name === "start") { tone(392,.08,"square",.05); setTimeout(function(){tone(523,.08,"square",.05);},80); setTimeout(function(){tone(784,.14,"square",.05);},160); }
+    else if (name === "select") { tone(520,.05,"square",.035,380); }
+    else if (name === "perfect") { tone(659,.08,"square",.05); setTimeout(function(){tone(880,.1,"square",.05);},70); setTimeout(function(){tone(1175,.16,"square",.045);},150); }
+    else if (name === "good") { tone(587,.09,"square",.045); setTimeout(function(){tone(784,.12,"square",.04);},90); }
+    else if (name === "meh") { tone(330,.1,"triangle",.05); setTimeout(function(){tone(247,.16,"triangle",.045);},110); }
+    else if (name === "fail") { tone(220,.16,"sawtooth",.05,90); setTimeout(function(){tone(110,.3,"sawtooth",.045,55);},150); }
+    else if (name === "next") { tone(660,.05,"square",.03); }
+  }
+
+  /* ============ 像素头像 ============ */
+  function drawFace(canvas, mood, blink){
+    var ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.clearRect(0, 0, 20, 20);
+    function p(x, y, w, h, c){ ctx.fillStyle = c; ctx.fillRect(x, y, w, h); }
+
+    var skin = "#f6cba4", skinD = "#e0ae86", hair = "#2b1d3f", eye = "#1e1030", mouth = "#a8504f";
+    var shirt = "#6b4bd6", collar = "#8f6df0";
+
+    // 身体
+    p(3, 16, 14, 4, shirt);
+    p(8, 16, 4, 2, collar);
+    p(9, 17, 2, 3, skinD);        // 领口里的脖子
+    p(8, 14, 4, 2, skinD);        // 脖子
+    // 耳朵
+    p(3, 8, 1, 3, skinD);
+    p(16, 8, 1, 3, skinD);
+    // 脸
+    p(4, 5, 12, 9, skin);
+    // 头发
+    p(3, 2, 14, 2, hair);
+    p(2, 4, 3, 5, hair);
+    p(15, 4, 3, 5, hair);
+    p(4, 4, 12, 2, hair);
+    // 刘海
+    p(5, 5, 4, 1, hair);
+    p(12, 5, 3, 1, hair);
+    // 腮红
+    p(5, 11, 2, 1, "#ff9db8");
+    p(13, 11, 2, 1, "#ff9db8");
+
+    if (mood === "cool") {
+      // 墨镜
+      p(4, 7, 13, 3, "#0b0718");
+      p(5, 7, 2, 1, "#5fd7ff");
+      p(13, 7, 1, 1, "#5fd7ff");
+      p(4, 6, 2, 1, "#0b0718");
+      p(15, 6, 2, 1, "#0b0718");
+      p(9, 12, 4, 1, mouth);
+      p(13, 12, 1, 1, mouth);
+    } else if (mood === "dead") {
+      // X 眼
+      p(5, 7, 1, 1, eye); p(7, 7, 1, 1, eye); p(6, 8, 1, 1, eye); p(5, 9, 1, 1, eye); p(7, 9, 1, 1, eye);
+      p(12, 7, 1, 1, eye); p(14, 7, 1, 1, eye); p(13, 8, 1, 1, eye); p(12, 9, 1, 1, eye); p(14, 9, 1, 1, eye);
+      p(8, 12, 4, 2, "#7b2f34");
+      // 冷汗
+      p(18, 6, 1, 2, "#5fd7ff");
+      p(17, 8, 1, 1, "#5fd7ff");
+    } else if (mood === "sweat") {
+      p(6, 7, 2, 2, eye);
+      p(12, 7, 2, 2, eye);
+      p(7, 7, 1, 1, "#ffffff");
+      p(8, 12, 4, 2, "#8b3f45");
+      p(18, 5, 1, 2, "#5fd7ff");
+      p(18, 7, 1, 1, "#9fe8ff");
+    } else if (mood === "think") {
+      p(6, 7, 2, 1, eye);
+      p(12, 7, 2, 1, eye);
+      p(5, 6, 2, 1, hair);
+      p(9, 12, 2, 1, mouth);
+    } else {
+      // idle
+      if (blink) {
+        p(6, 8, 2, 1, eye);
+        p(12, 8, 2, 1, eye);
+      } else {
+        p(6, 7, 2, 2, eye);
+        p(12, 7, 2, 2, eye);
+        p(6, 7, 1, 1, "#ffffff");
+        p(12, 7, 1, 1, "#ffffff");
+      }
+      p(8, 12, 4, 1, mouth);
+    }
+  }
+
+  var faceMain = $("face");
+  var faceTitle = $("faceTitle");
+  var faceEnd = $("faceEnd");
+  var currentMood = "idle";
+  var blinkOn = false;
+
+  function setMood(mood){
+    currentMood = mood;
+    drawFace(faceMain, mood, false);
+    var moodText = {
+      idle: "礼貌性微笑",
+      think: "大脑正在缓冲",
+      sweat: "冷汗 +1",
+      cool: "影帝附体",
+      dead: "当场翻车"
+    }[mood] || "礼貌性微笑";
+    var el = $("mood");
+    if (el) el.textContent = moodText;
+  }
+
+  setInterval(function(){
+    blinkOn = !blinkOn;
+    if (currentMood === "idle" && faceMain) drawFace(faceMain, "idle", blinkOn);
+    if (faceTitle) drawFace(faceTitle, "idle", blinkOn);
+  }, 900);
+
+  drawFace(faceTitle, "idle", false);
+  drawFace(faceMain, "idle", false);
+  drawFace(faceEnd, "cool", false);
+
+  /* ============ 屏幕切换 ============ */
+  function showScreen(name){
+    Object.keys(screens).forEach(function(k){
+      screens[k].classList.toggle("on", k === name);
+    });
+  }
+
+  /* ============ 初始化 UI ============ */
+  var dotsEl = $("dots");
+  var endDotsEl = $("endDots");
+  var meterEl = $("meter");
+  var METER_SEGS = 15;
+  for (var m = 0; m < METER_SEGS; m++) {
+    meterEl.appendChild(document.createElement("i"));
+  }
+  function buildDots(container){
+    container.innerHTML = "";
+    for (var i = 0; i < QUESTIONS.length; i++) container.appendChild(document.createElement("i"));
+  }
+  buildDots(dotsEl);
+  buildDots(endDotsEl);
+
+  function updateMeter(){
+    var segs = meterEl.children;
+    var onCount = Math.round(state.score / 30 * METER_SEGS);
+    for (var i = 0; i < segs.length; i++) segs[i].classList.toggle("on", i < onCount);
+    $("meterNum").textContent = state.score;
+  }
+
+  function updateHud(){
+    $("hudScore").textContent = state.score;
+    $("hudProg").textContent = Math.min(state.i + (state.results.length ? 1 : 0), 10) + "/10";
+    $("hudFail").textContent = state.fails;
+    updateMeter();
+  }
+
+  /* ============ 渲染题目 ============ */
+  function shuffled(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function buildSession(){
+    session = QUESTIONS.map(function(q){
+      return {
+        scene: q.scene, who: q.who, line: q.line, prompt: q.prompt,
+        opts: shuffled(q.opts)
+      };
+    });
+  }
+
+  function renderQuestion(){
+    var q = session[state.i];
+    state.locked = false;
+
+    $("sceneLabel").textContent = "SCENE " + String(state.i + 1).padStart(2, "0") + " · " + q.scene;
+    $("counter").textContent = String(state.i + 1).padStart(2, "0") + " / " + String(QUESTIONS.length).padStart(2, "0");
+    $("speaker").textContent = q.who;
+    $("line").textContent = q.line;
+    $("prompt").innerHTML = '<span class="lead-label">你的反应 ——</span><em>' + q.prompt + '</em><span class="hint">键盘 1 / 2 / 3 / 4 也可选择</span>';
+
+    var optsEl = $("opts");
+    optsEl.innerHTML = "";
+    var keys = ["A", "B", "C", "D"];
+    q.opts.forEach(function(o, idx){
+      var btn = document.createElement("button");
+      btn.className = "opt";
+      btn.type = "button";
+      btn.dataset.idx = idx;
+      btn.innerHTML = '<span class="key">' + keys[idx] + '</span><span class="txt">' + o.t + '</span>';
+      btn.addEventListener("click", function(){ choose(idx); });
+      optsEl.appendChild(btn);
+    });
+
+    $("feedback").hidden = true;
+    setMood(state.i === 0 ? "think" : "idle");
+
+    // 进度点
+    var dots = dotsEl.children;
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].className = state.results[i] !== undefined ? "p" + state.results[i] : "";
+      dots[i].classList.toggle("cur", i === state.i);
+    }
+    updateHud();
+  }
+
+  /* ============ 选择 ============ */
+  var VERDICTS = {
+    3: { text: "PERFECT · 懂王级", cls: "" },
+    2: { text: "GOOD · 安全着陆", cls: "s2" },
+    1: { text: "MEH · 糊弄过关", cls: "s1" },
+    0: { text: "MISS · 当场翻车", cls: "s0" }
+  };
+
+  function choose(idx){
+    if (state.locked) return;
+    state.locked = true;
+    var q = session[state.i];
+    var picked = q.opts[idx];
+    var best = 0;
+    q.opts.forEach(function(o, i){ if (o.s > q.opts[best].s) best = i; });
+
+    // 禁用所有选项并标注
+    Array.prototype.forEach.call($("opts").children, function(btn, i){
+      btn.disabled = true;
+      if (i === best) {
+        btn.classList.add("is-best");
+        if (!btn.querySelector(".flag")) {
+          var f = document.createElement("span");
+          f.className = "flag";
+          f.textContent = "BEST";
+          btn.appendChild(f);
+        }
+      } else {
+        btn.classList.add("faded");
+      }
+      if (i === idx && picked.s < q.opts[best].s) {
+        btn.classList.remove("faded");
+        btn.classList.add("is-picked-miss");
+        var fm = document.createElement("span");
+        fm.className = "flag miss";
+        fm.textContent = "YOU";
+        btn.appendChild(fm);
+      }
+    });
+
+    state.score += picked.s;
+    if (picked.s === 0) state.fails++;
+    state.results[state.i] = picked.s;
+
+    var dots = dotsEl.children;
+    if (dots[state.i]) {
+      dots[state.i].className = "p" + picked.s;
+    }
+
+    $("stamp").textContent = VERDICTS[picked.s].text;
+    $("stamp").className = "stamp " + VERDICTS[picked.s].cls;
+    $("gain").textContent = "+" + picked.s + " 分";
+    $("why").innerHTML = "<b>点评：</b>" + picked.why;
+    $("feedback").hidden = false;
+    $("nextBtn").textContent = (state.i === QUESTIONS.length - 1) ? "查看段位 ▶" : "继续 ▶";
+
+    setMood(picked.s === 3 ? "cool" : picked.s === 2 ? "idle" : picked.s === 1 ? "think" : "dead");
+    updateHud();
+
+    // 反馈特效
+    cabinet.classList.remove("flash-good", "flash-bad");
+    void cabinet.offsetWidth;
+    cabinet.classList.add(picked.s >= 2 ? "flash-good" : "flash-bad");
+    setTimeout(function(){ cabinet.classList.remove("flash-good", "flash-bad"); }, 380);
+
+    if (picked.s === 3) sfx("perfect");
+    else if (picked.s === 2) sfx("good");
+    else if (picked.s === 1) sfx("meh");
+    else sfx("fail");
+
+    if (window.innerWidth < 760) {
+      setTimeout(function(){
+        var fb = $("feedback");
+        if (fb && fb.scrollIntoView) fb.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, 60);
+    }
+  }
+
+  /* ============ 下一题 ============ */
+  function next(){
+    if (!state.locked) return;
+    sfx("next");
+    if (state.i < QUESTIONS.length - 1) {
+      state.i++;
+      renderQuestion();
+      var main = $("screen-quiz");
+      if (main && window.scrollY > 0) window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      finish();
+    }
+  }
+
+  /* ============ 结算 ============ */
+  function findRank(score){
+    for (var i = 0; i < RANKS.length; i++) {
+      if (score >= RANKS[i].min && score <= RANKS[i].max) return RANKS[i];
+    }
+    return RANKS[0];
+  }
+
+  function finish(){
+    var rank = findRank(state.score);
+    $("rankName").textContent = rank.name;
+    $("rankName").style.color = rank.color;
+    $("rankTag").textContent = rank.tag;
+    $("rankDesc").textContent = rank.desc;
+    $("endStats").innerHTML =
+      '<div>正确判断<b>' + (10 - state.fails) + ' / 10</b></div>' +
+      '<div>当场翻车<b>' + state.fails + ' 次</b></div>' +
+      '<div>剩余悬念<b>' + (30 - state.score) + ' 分</b></div>';
+
+    var endDots = endDotsEl.children;
+    for (var i = 0; i < endDots.length; i++) {
+      endDots[i].className = state.results[i] !== undefined ? "p" + state.results[i] : "";
+    }
+
+    drawFace(faceEnd, rank.mood, false);
+
+    showScreen("end");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // 分数滚动
+    var target = state.score;
+    var cur = 0;
+    var el = $("finalScore");
+    el.textContent = "0";
+    var timer = setInterval(function(){
+      cur += Math.max(1, Math.ceil((target - cur) / 6));
+      if (cur >= target) { cur = target; clearInterval(timer); }
+      el.textContent = cur;
+    }, 45);
+
+    if (target >= 24) { sfx("perfect"); setTimeout(function(){ sfx("good"); }, 240); }
+    else if (target >= 10) { sfx("good"); }
+    else { sfx("fail"); }
+  }
+
+  /* ============ 开始 / 重来 ============ */
+  function startGame(){
+    state = { i: 0, score: 0, fails: 0, results: [], locked: false, started: true, sound: state.sound };
+    buildSession();
+    buildDots(dotsEl);
+    buildDots(endDotsEl);
+    updateMeter();
+    showScreen("quiz");
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    sfx("start");
+  }
+
+  /* ============ 复制成绩 ============ */
+  function copyResult(){
+    var rank = findRank(state.score);
+    var text = "我在《假装听懂了》糊弄学段位测试里拿了 " + state.score + "/30，段位：" + rank.name + "（" + rank.tag + "），翻车 " + state.fails + " 次。你能撑到第几轮？";
+    var t = $("toast");
+    t.classList.add("on");
+    setTimeout(function(){ t.classList.remove("on"); }, 2200);
+    function fallback(){
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch(e){}
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).catch(fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  /* ============ 事件 ============ */
+  $("startBtn").addEventListener("click", startGame);
+  $("nextBtn").addEventListener("click", next);
+  $("againBtn").addEventListener("click", startGame);
+  $("copyBtn").addEventListener("click", copyResult);
+
+  var muteBtn = $("muteBtn");
+  muteBtn.addEventListener("click", function(){
+    state.sound = !state.sound;
+    muteBtn.textContent = state.sound ? "♪" : "×";
+    muteBtn.classList.toggle("off", !state.sound);
+    if (state.sound) sfx("select");
+  });
+
+  document.addEventListener("keydown", function(e){
+    if (e.key === "m" || e.key === "M") { muteBtn.click(); return; }
+    if (!screens.quiz.classList.contains("on")) {
+      if (e.key === "Enter" && screens.title.classList.contains("on")) startGame();
+      return;
+    }
+    if (e.key === "Enter" || e.key === " ") {
+      if (state.locked) { e.preventDefault(); next(); }
+      return;
+    }
+    var map = { "1": 0, "2": 1, "3": 2, "4": 3, "a": 0, "b": 1, "c": 2, "d": 3 };
+    var k = e.key.toLowerCase();
+    if (map[k] !== undefined && !state.locked) {
+      var btn = $("opts").children[map[k]];
+      if (btn) { btn.click(); }
+    }
+  });
+
+  /* 首屏键盘提示 */
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Enter" && screens.end.classList.contains("on")) { startGame(); }
+  });
+
+})();
+</script>
+</body>
+</html>
